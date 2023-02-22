@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:taskmaster/pages/auth/login_page.dart';
 
 class DrawerPage extends StatefulWidget {
   const DrawerPage({super.key, this.name = 'Guest User', required this.press});
@@ -99,6 +100,50 @@ class _DrawerState extends State<DrawerPage> {
             height: 1,
           ),
           ListTile(
+            leading: Icon(Icons.timer,
+                size: _drawerIconSize,
+                color: Theme.of(context).colorScheme.secondary),
+            title: Text(
+              'My Routine',
+              style: TextStyle(
+                  fontSize: _drawerFontSize,
+                  color: Theme.of(context).colorScheme.secondary),
+            ),
+            onTap: () {
+              setState(() {
+                currentIndex = 2;
+                HapticFeedback.lightImpact();
+                widget.press(currentIndex);
+              });
+            },
+          ),
+          Divider(
+            color: Theme.of(context).primaryColor,
+            height: 1,
+          ),
+          ListTile(
+            leading: Icon(Icons.people_sharp,
+                size: _drawerIconSize,
+                color: Theme.of(context).colorScheme.secondary),
+            title: Text(
+              'Leader Board',
+              style: TextStyle(
+                  fontSize: _drawerFontSize,
+                  color: Theme.of(context).colorScheme.secondary),
+            ),
+            onTap: () {
+              setState(() {
+                currentIndex = 3;
+                HapticFeedback.lightImpact();
+                widget.press(currentIndex);
+              });
+            },
+          ),
+          Divider(
+            color: Theme.of(context).primaryColor,
+            height: 1,
+          ),
+          ListTile(
             leading: Icon(
               Icons.logout_rounded,
               size: _drawerIconSize,
@@ -112,6 +157,9 @@ class _DrawerState extends State<DrawerPage> {
             ),
             onTap: () {
               SystemNavigator.pop();
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                  (route) => false);
             },
           ),
         ],

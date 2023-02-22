@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taskmaster/pages/chat/chat_screen.dart';
+import 'package:taskmaster/pages/routine/routine.dart';
+import 'package:taskmaster/pages/views/leaderboard.dart';
 import 'package:taskmaster/pages/views/profile_page.dart';
 import 'package:taskmaster/pages/widgets/drawer.dart';
 
@@ -88,6 +90,14 @@ class _HomePageState extends State<HomePage> {
               )
             } else if (index == 1) ...{
               const ProfilePage(),
+            } else if (index == 2) ...{
+              const Expanded(
+                child: Routine(),
+              )
+            } else if (index == 3) ...{
+              const Expanded(
+                child: Leaderboard(),
+              )
             }
           ],
         ));
