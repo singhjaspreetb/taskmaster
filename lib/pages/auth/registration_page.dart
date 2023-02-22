@@ -3,9 +3,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:taskmaster/common/theme_helper.dart';
+import 'package:taskmaster/helper/helper_function.dart';
 import 'package:taskmaster/pages/auth/login_page.dart';
 import 'package:taskmaster/pages/views/home_page.dart';
 import 'package:taskmaster/pages/views/profile_page.dart';
+import 'package:taskmaster/services/auth_service.dart';
 import 'package:taskmaster/pages/widgets/header_widget.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -20,7 +22,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _formKey = GlobalKey<FormState>();
   bool checkedValue = false;
   bool checkboxValue = false;
-
+  String fullName = "";
+  String email = "";
+  String password = "";
+  AuthService authService = AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,17 +90,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         Container(
                           child: TextFormField(
                             decoration: ThemeHelper().textInputDecoration(
-                                'First Name', 'Enter your first name'),
-                          ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Container(
-                          child: TextFormField(
-                            decoration: ThemeHelper().textInputDecoration(
-                                'Last Name', 'Enter your last name'),
+                                'Full Name', 'Enter your full name'),
+                            onChanged: (val) {
+                              setState(() {
+                                fullName = val;
+                              });
+                            },
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
@@ -105,6 +105,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             decoration: ThemeHelper().textInputDecoration(
                                 "E-mail address", "Enter your email"),
                             keyboardType: TextInputType.emailAddress,
+                            onChanged: (val) {
+                              setState(() {
+                                email = val;
+                              });
+                            },
                             validator: (val) {
                               if (!(val!.isEmpty) &&
                                   !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
@@ -119,25 +124,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         const SizedBox(height: 20.0),
                         Container(
                           child: TextFormField(
-                            decoration: ThemeHelper().textInputDecoration(
-                                "Mobile Number", "Enter your mobile number"),
-                            keyboardType: TextInputType.phone,
-                            validator: (val) {
-                              if (!(val!.isEmpty) &&
-                                  !RegExp(r"^(\d+)*$").hasMatch(val)) {
-                                return "Enter a valid phone number";
-                              }
-                              return null;
-                            },
-                          ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
-                        ),
-                        const SizedBox(height: 20.0),
-                        Container(
-                          child: TextFormField(
                             obscureText: true,
                             decoration: ThemeHelper().textInputDecoration(
                                 "Password*", "Enter your password"),
+                            onChanged: (val) {
+                              setState(() {
+                                password = val;
+                              });
+                            },
                             validator: (val) {
                               if (val!.isEmpty) {
                                 return "Please enter your password";
@@ -209,12 +203,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               ),
                             ),
                             onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                        builder: (context) => HomePage()),
-                                    (Route<dynamic> route) => false);
-                              }
+                              register();
                             },
                           ),
                         ),
@@ -335,5 +324,30 @@ class _RegistrationPageState extends State<RegistrationPage> {
         ),
       ),
     );
+  }
+
+  register() async {
+    // if (_formKey.currentState!.validate()) {
+    //   setState(() {
+    //     // _isLoading = true;
+    //   });
+      await authService
+          .registerUserWithEmailandPassword(fullName, email, password)
+          .then((value) async {
+        if (value == true) {
+          // saving the shared preference state
+          await HelperFunctions.saveUserLoggedInStatus(true);
+          await HelperFunctions.saveUserEmailSF(email);
+          await HelperFunctions.saveUserNameSF(fullName);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
+        } else {
+          // showSnackbar(context, Colors.red, value);
+          setState(() {
+            // _isLoading = false;
+          });
+        }
+      });
+    }
   }
 }
