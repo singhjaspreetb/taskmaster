@@ -17,16 +17,15 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    double _headerHeight = 300;
+    double headerHeight = 300;
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                height: _headerHeight,
-                child:
-                    HeaderWidget(_headerHeight, true, Icons.password_rounded),
+              SizedBox(
+                height: headerHeight,
+                child: HeaderWidget(headerHeight, true, Icons.password_rounded),
               ),
               SafeArea(
                 child: Container(
@@ -80,6 +79,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         child: Column(
                           children: <Widget>[
                             Container(
+                              decoration:
+                                  ThemeHelper().inputBoxDecorationShaddow(),
                               child: TextFormField(
                                 decoration: ThemeHelper().textInputDecoration(
                                     "Email", "Enter your email"),
@@ -94,8 +95,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                   return null;
                                 },
                               ),
-                              decoration:
-                                  ThemeHelper().inputBoxDecorationShaddow(),
                             ),
                             const SizedBox(height: 40.0),
                             Container(

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,6 +11,8 @@ import 'package:taskmaster/pages/widgets/header_widget.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class RegistrationPage extends StatefulWidget {
+  const RegistrationPage({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _RegistrationPageState();
@@ -33,10 +34,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            Container(
+            const SizedBox(
               height: 150,
-              child: const HeaderWidget(
-                  150, false, Icons.person_add_alt_1_rounded),
+              child: HeaderWidget(150, false, Icons.person_add_alt_1_rounded),
             ),
             Container(
               margin: const EdgeInsets.fromLTRB(25, 50, 25, 10),
@@ -58,8 +58,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   border:
                                       Border.all(width: 5, color: Colors.white),
                                   color: Colors.white,
-                                  boxShadow: [
-                                    const BoxShadow(
+                                  boxShadow: const [
+                                    BoxShadow(
                                       color: Colors.black12,
                                       blurRadius: 20,
                                       offset: Offset(5, 5),
@@ -88,6 +88,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           height: 30,
                         ),
                         Container(
+                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             decoration: ThemeHelper().textInputDecoration(
                                 'Full Name', 'Enter your full name'),
@@ -97,10 +98,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               });
                             },
                           ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
                         const SizedBox(height: 20.0),
                         Container(
+                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             decoration: ThemeHelper().textInputDecoration(
                                 "E-mail address", "Enter your email"),
@@ -119,10 +120,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               return null;
                             },
                           ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
                         const SizedBox(height: 20.0),
                         Container(
+                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             obscureText: true,
                             decoration: ThemeHelper().textInputDecoration(
@@ -139,7 +140,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               return null;
                             },
                           ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
                         const SizedBox(height: 15.0),
                         FormField<bool>(
@@ -168,7 +168,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     state.errorText ?? '',
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
-                                      color: Theme.of(context).errorColor,
+                                      color:
+                                          Theme.of(context).colorScheme.error,
                                       fontSize: 12,
                                     ),
                                   ),
@@ -305,7 +306,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => LoginPage()));
+                                          builder: (context) =>
+                                              const LoginPage()));
                                 },
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,

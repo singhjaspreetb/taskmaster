@@ -56,11 +56,11 @@ class _AppState extends State<App> {
       title: 'Task Master',
       theme: ThemeData(
         primaryColor: _primaryColor,
-        accentColor: _accentColor,
         scaffoldBackgroundColor: Colors.grey.shade100,
-        primarySwatch: Colors.grey,
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey)
+            .copyWith(secondary: _accentColor),
       ),
-      home: SplashScreen(title: 'Task Master'),
+      home: const SplashScreen(title: 'Task Master'),
       // home: ChatScreen(),
     );
   }
