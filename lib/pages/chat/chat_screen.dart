@@ -57,7 +57,7 @@ class _ChatScreenState extends State<ChatScreen> {
     }
     ChatMessage message = const ChatMessage(
       text: 'Genrating Best Possible Routine For You...',
-      sender: "Task Manager",
+      sender: "Task Master",
       isImage: false,
     );
     setState(() {

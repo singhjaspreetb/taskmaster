@@ -333,23 +333,22 @@ class _RegistrationPageState extends State<RegistrationPage> {
     //   setState(() {
     //     // _isLoading = true;
     //   });
-      await authService
-          .registerUserWithEmailandPassword(fullName, email, password)
-          .then((value) async {
-        if (value == true) {
-          // saving the shared preference state
-          await HelperFunctions.saveUserLoggedInStatus(true);
-          await HelperFunctions.saveUserEmailSF(email);
-          await HelperFunctions.saveUserNameSF(fullName);
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomePage()));
-        } else {
-          // showSnackbar(context, Colors.red, value);
-          setState(() {
-            // _isLoading = false;
-          });
-        }
-      });
-    }
+    await authService
+        .registerUserWithEmailandPassword(fullName, email, password)
+        .then((value) async {
+      if (value == true) {
+        // saving the shared preference state
+        await HelperFunctions.saveUserLoggedInStatus(true);
+        await HelperFunctions.saveUserEmailSF(email);
+        await HelperFunctions.saveUserNameSF(fullName);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
+      } else {
+        // showSnackbar(context, Colors.red, value);
+        setState(() {
+          // _isLoading = false;
+        });
+      }
+    });
   }
 }

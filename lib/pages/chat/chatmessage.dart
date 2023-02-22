@@ -15,35 +15,51 @@ class ChatMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(sender)
-            .text
-            .bold
-            .subtitle1(context)
-            .make()
-            .box
-            .color(sender == "Guest User" ? Vx.red200 : Vx.green200)
-            .p16
-            .rounded
-            .alignCenter
-            .makeCentered(),
-        Expanded(
-          child: isImage
-              ? AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: Image.network(
-                    text,
-                    loadingBuilder: (context, child, loadingProgress) =>
-                        loadingProgress == null
-                            ? child
-                            : const CircularProgressIndicator.adaptive(),
-                  ),
-                )
-              : text.trim().text.size(18).bodyText1(context).make().px8(),
+        Container(
+          height: 32,
+          width: 140,
+          decoration: BoxDecoration(
+            color: Colors.blueAccent,
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Center(
+            child: Text(
+              sender,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: 20),
+              textAlign: TextAlign.left,
+            ),
+          ),
         ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          text,
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+        ),
+        // Expanded(
+        //   child: Text(sender)
+        //       .text
+        //       .bold
+        //       .subtitle1(context)
+        //       .make()
+        //       .box
+        //       .color(sender == "Guest User" ? Vx.red200 : Vx.green200)
+        //       .p16
+        //       .rounded
+        //       .alignCenter
+        //       .makeCentered(),
+        // ),
+        // Expanded(
+        //   child: text.trim().text.size(18).bodyText1(context).make().px8(),
+        // ),
       ],
-    ).py8();
+    );
   }
 }
