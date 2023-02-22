@@ -1,4 +1,5 @@
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:taskmaster/pages/chat/chatmessage.dart';
 import 'package:taskmaster/pages/chat/form.dart';
@@ -13,15 +14,14 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final TextEditingController _controller = TextEditingController();
   final List<ChatMessage> _messages = [
     const ChatMessage(
         text:
-            'Hey User, I am Task Master your AI Powered Personalised Learning Partner ;)\n\nPlease Fill the Form So, I can Help you...',
+            // 'Hey User, I am Task Master your AI Powered Personalised Learning Partner ;)\n\n'
+            'Please Fill the Form So, I can Help you...',
         sender: 'Task Master'),
   ];
   late OpenAI? chatGPT;
-  bool _isImageSearch = false;
 
   bool _isTyping = false;
   String promt = '';
@@ -52,7 +52,9 @@ class _ChatScreenState extends State<ChatScreen> {
   void _sendMessage() async {
     // _controller = controller;
     // if (_controller.text.isEmpty) return;
-    print(promt);
+    if (kDebugMode) {
+      print(promt);
+    }
     ChatMessage message = const ChatMessage(
       text: 'Genrating Best Possible Routine For You...',
       sender: "Task Manager",
@@ -77,7 +79,9 @@ class _ChatScreenState extends State<ChatScreen> {
         prompt: promt.toString(), maxTokens: 2000, model: kTranslateModelV3);
 
     final response = await chatGPT!.onCompleteText(request: request);
-    print(response);
+    if (kDebugMode) {
+      print(response);
+    }
     // final request =
     //     CompleteText(prompt: message.text, model: kTranslateModelV3);
 
@@ -103,39 +107,41 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                Flexible(
-                  child: ListView.builder(
-                    reverse: true,
-                    padding: Vx.m8,
-                    itemCount: _messages.length,
-                    itemBuilder: (context, index) {
-                      // sleep(Duration(seconds: 2));
-                      return _messages[index];
-                    },
-                  ),
-                ),
-                // const SizedBox(
-                //   height: 50,
-                // ),
-                if (_messages.length == 1) ...{
-                  Padding(
-                    padding: const EdgeInsets.all(50.0),
-                    child: MyForm(
-                      // controller: _controller,
-                      onSubmitted: (promt) => _onPressed(promt),
+      child: Flexible(
+        child: Column(
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  Flexible(
+                    child: ListView.builder(
+                      reverse: true,
+                      padding: Vx.m8,
+                      itemCount: _messages.length,
+                      itemBuilder: (context, index) {
+                        // sleep(Duration(seconds: 2));
+                        return _messages[index];
+                      },
                     ),
                   ),
-                }
-              ],
+                  // const SizedBox(
+                  //   height: 50,
+                  // ),
+                  if (_messages.length == 1) ...{
+                    Padding(
+                      padding: const EdgeInsets.all(50.0),
+                      child: MyForm(
+                        // controller: _controller,
+                        onSubmitted: (promt) => _onPressed(promt),
+                      ),
+                    ),
+                  }
+                ],
+              ),
             ),
-          ),
-          if (_isTyping) const ThreeDots(),
-        ],
+            if (_isTyping) const ThreeDots(),
+          ],
+        ),
       ),
     );
   }

@@ -8,8 +8,10 @@ void main() {
 }
 
 class App extends StatelessWidget {
-  Color _primaryColor = HexColor('#1184e8');
-  Color _accentColor = HexColor('#000');
+  final Color _primaryColor = HexColor('#1184e8');
+  final Color _accentColor = HexColor('#000');
+
+  App({super.key});
 
   // Design color
   // Color _primaryColor= HexColor('#FFC867');
@@ -31,11 +33,11 @@ class App extends StatelessWidget {
       title: 'Task Master',
       theme: ThemeData(
         primaryColor: _primaryColor,
-        accentColor: _accentColor,
         scaffoldBackgroundColor: Colors.grey.shade100,
-        primarySwatch: Colors.grey,
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey)
+            .copyWith(secondary: _accentColor),
       ),
-      home: SplashScreen(title: 'Task Master'),
+      home: const SplashScreen(title: 'Task Master'),
       // home: ChatScreen(),
     );
   }

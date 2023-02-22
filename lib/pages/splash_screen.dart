@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:taskmaster/pages/auth/login_page.dart';
 import 'package:taskmaster/pages/views/home_page.dart';
 
 class SplashScreen extends StatefulWidget {
-  SplashScreen({Key? key, required this.title}) : super(key: key);
+  const SplashScreen({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -39,12 +38,12 @@ class _SplashScreenState extends State<SplashScreen> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Theme.of(context).accentColor,
+            Theme.of(context).colorScheme.secondary,
             Theme.of(context).primaryColor
           ],
           begin: const FractionalOffset(0, 0),
           end: const FractionalOffset(1.0, 0.0),
-          stops: [0.0, 1.0],
+          stops: const [0.0, 1.0],
           tileMode: TileMode.clamp,
         ),
       ),

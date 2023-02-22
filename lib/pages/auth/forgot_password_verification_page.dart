@@ -4,7 +4,6 @@ import 'package:taskmaster/common/theme_helper.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:taskmaster/pages/views/home_page.dart';
-import 'package:taskmaster/pages/views/profile_page.dart';
 import 'package:taskmaster/pages/widgets/header_widget.dart';
 
 class ForgotPasswordVerificationPage extends StatefulWidget {
@@ -22,17 +21,17 @@ class _ForgotPasswordVerificationPageState
 
   @override
   Widget build(BuildContext context) {
-    double _headerHeight = 300;
+    double headerHeight = 300;
 
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                height: _headerHeight,
+              SizedBox(
+                height: headerHeight,
                 child: HeaderWidget(
-                    _headerHeight, true, Icons.privacy_tip_outlined),
+                    headerHeight, true, Icons.privacy_tip_outlined),
               ),
               SafeArea(
                 child: Container(
@@ -131,8 +130,9 @@ class _ForgotPasswordVerificationPageState
                                         Navigator.of(context)
                                             .pushAndRemoveUntil(
                                                 MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        HomePage()),
+                                                    builder:
+                                                        (context) =>
+                                                            const HomePage()),
                                                 (Route<dynamic> route) =>
                                                     false);
                                       }

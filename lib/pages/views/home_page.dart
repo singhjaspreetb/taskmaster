@@ -49,8 +49,8 @@ class _HomePageState extends State<HomePage> {
                 right: 16,
               ),
               child: Stack(
-                children: <Widget>[
-                  const Icon(Icons.notifications_none),
+                children: const <Widget>[
+                  Icon(Icons.notifications_none),
                   // Positioned(
                   //   right: 0,
                   //   child: Container(

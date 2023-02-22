@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:taskmaster/common/theme_helper.dart';
 import 'package:taskmaster/pages/auth/forgot_password_page.dart';
 import 'package:taskmaster/pages/auth/registration_page.dart';
-import 'package:taskmaster/pages/chat/chat_screen.dart';
 import 'package:taskmaster/pages/views/home_page.dart';
-import 'package:taskmaster/pages/views/profile_page.dart';
 import 'package:taskmaster/pages/widgets/header_widget.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,8 +14,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  double _headerHeight = 250;
-  Key _formKey = GlobalKey<FormState>();
+  final double _headerHeight = 250;
+  final Key _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: _headerHeight,
               child: HeaderWidget(_headerHeight, true,
                   Icons.login_rounded), //let's create a common header widget
@@ -82,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              ForgotPasswordPage()),
+                                              const ForgotPasswordPage()),
                                     );
                                   },
                                   child: const Text(
@@ -114,7 +111,8 @@ class _LoginPageState extends State<LoginPage> {
                                     Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => HomePage()));
+                                            builder: (context) =>
+                                                const HomePage()));
                                   },
                                 ),
                               ),
@@ -124,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                                 //child: Text('Don\'t have an account? Create'),
                                 child: Text.rich(TextSpan(children: [
                                   const TextSpan(
-                                      text: "Don\'t have an account? "),
+                                      text: "Don't have an account? "),
                                   TextSpan(
                                     text: 'Create',
                                     recognizer: TapGestureRecognizer()
@@ -133,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    RegistrationPage()));
+                                                    const RegistrationPage()));
                                       },
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
