@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:taskmaster/pages/widgets/header_widget.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _ProfilePageState();
@@ -10,17 +11,14 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  double _drawerIconSize = 24;
-  double _drawerFontSize = 17;
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Stack(
         children: [
-          Container(
+          const SizedBox(
             height: 100,
-            child: const HeaderWidget(100, false, Icons.house_rounded),
+            child: HeaderWidget(100, false, Icons.house_rounded),
           ),
           Container(
             alignment: Alignment.center,
@@ -34,8 +32,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     borderRadius: BorderRadius.circular(100),
                     border: Border.all(width: 5, color: Colors.white),
                     color: Colors.white,
-                    boxShadow: [
-                      const BoxShadow(
+                    boxShadow: const [
+                      BoxShadow(
                         color: Colors.black12,
                         blurRadius: 20,
                         offset: Offset(5, 5),
@@ -52,14 +50,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 20,
                 ),
                 const Text(
-                  'Mr. Donald Trump',
+                  'Guest User',
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 const Text(
-                  'Former President',
+                  'Student',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
@@ -98,12 +96,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                             horizontal: 12, vertical: 4),
                                         leading: Icon(Icons.my_location),
                                         title: Text("Location"),
-                                        subtitle: Text("USA"),
+                                        subtitle: Text("Chandiarh"),
                                       ),
                                       const ListTile(
                                         leading: Icon(Icons.email),
                                         title: Text("Email"),
-                                        subtitle: Text("donaldtrump@gmail.com"),
+                                        subtitle: Text("guestuser@gmail.com"),
                                       ),
                                       const ListTile(
                                         leading: Icon(Icons.phone),

@@ -1,6 +1,7 @@
+import 'dart:io';
+
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:taskmaster/pages/chat/chatmessage.dart';
 import 'package:taskmaster/pages/chat/threedots.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -14,7 +15,14 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
-  final List<ChatMessage> _messages = [];
+  final List<ChatMessage> _messages = [
+    const ChatMessage(
+        text: 'So, What You Want to Learn ???', sender: 'Task Master'),
+    const ChatMessage(
+        text:
+            'Hey User, I am Task Master your AI Powered Personalised Learning Partner ;)',
+        sender: 'Task Master'),
+  ];
   late OpenAI? chatGPT;
   bool _isImageSearch = false;
 
@@ -41,7 +49,7 @@ class _ChatScreenState extends State<ChatScreen> {
     if (_controller.text.isEmpty) return;
     ChatMessage message = ChatMessage(
       text: _controller.text,
-      sender: "user",
+      sender: "Guest User",
       isImage: false,
     );
 
@@ -71,7 +79,7 @@ class _ChatScreenState extends State<ChatScreen> {
   void insertNewData(String response, {bool isImage = false}) {
     ChatMessage botMessage = ChatMessage(
       text: response,
-      sender: "bot",
+      sender: "Task Master",
       isImage: isImage,
     );
 
@@ -132,6 +140,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     padding: Vx.m8,
                     itemCount: _messages.length,
                     itemBuilder: (context, index) {
+                      // sleep(Duration(seconds: 2));
                       return _messages[index];
                     },
                   ),

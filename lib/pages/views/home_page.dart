@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:taskmaster/pages/chat/chat_screen.dart';
 import 'package:taskmaster/pages/views/profile_page.dart';
 import 'package:taskmaster/pages/widgets/drawer.dart';
-import 'package:taskmaster/pages/widgets/header_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -38,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                     end: Alignment.bottomRight,
                     colors: <Color>[
                   Theme.of(context).primaryColor,
-                  Theme.of(context).accentColor,
+                  Theme.of(context).colorScheme.secondary,
                 ])),
           ),
           actions: [
@@ -49,29 +48,29 @@ class _HomePageState extends State<HomePage> {
               ),
               child: Stack(
                 children: <Widget>[
-                  const Icon(Icons.notifications),
-                  Positioned(
-                    right: 0,
-                    child: Container(
-                      padding: const EdgeInsets.all(1),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      constraints: const BoxConstraints(
-                        minWidth: 12,
-                        minHeight: 12,
-                      ),
-                      child: const Text(
-                        '5',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 8,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  )
+                  const Icon(Icons.notifications_none),
+                  // Positioned(
+                  //   right: 0,
+                  //   child: Container(
+                  //     padding: const EdgeInsets.all(1),
+                  //     decoration: BoxDecoration(
+                  //       color: Colors.red,
+                  //       borderRadius: BorderRadius.circular(6),
+                  //     ),
+                  //     constraints: const BoxConstraints(
+                  //       minWidth: 12,
+                  //       minHeight: 12,
+                  //     ),
+                  //     child: const Text(
+                  //       '5',
+                  //       style: TextStyle(
+                  //         color: Colors.white,
+                  //         fontSize: 8,
+                  //       ),
+                  //       textAlign: TextAlign.center,
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
             )
@@ -84,11 +83,11 @@ class _HomePageState extends State<HomePage> {
         body: Column(
           children: [
             if (index == 0) ...{
-              Expanded(
+              const Expanded(
                 child: ChatScreen(),
               )
             } else if (index == 1) ...{
-              ProfilePage(),
+              const ProfilePage(),
             }
           ],
         ));

@@ -320,7 +320,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 },
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).accentColor),
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
                             ),
                           ])),
                         ),

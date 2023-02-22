@@ -11,8 +11,8 @@ class DrawerPage extends StatefulWidget {
 
 class _DrawerState extends State<DrawerPage> {
   var currentIndex = 0;
-  double _drawerIconSize = 24;
-  double _drawerFontSize = 17;
+  final double _drawerIconSize = 24;
+  final double _drawerFontSize = 17;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +26,7 @@ class _DrawerState extends State<DrawerPage> {
           ],
               colors: [
             Theme.of(context).primaryColor.withOpacity(0.2),
-            Theme.of(context).accentColor.withOpacity(0.5),
+            Theme.of(context).colorScheme.secondary.withOpacity(0.5),
           ])),
       child: ListView(
         children: [
@@ -36,10 +36,10 @@ class _DrawerState extends State<DrawerPage> {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                stops: [0.0, 1.0],
+                stops: const [0.0, 1.0],
                 colors: [
                   Theme.of(context).primaryColor,
-                  Theme.of(context).accentColor,
+                  Theme.of(context).colorScheme.secondary,
                 ],
               ),
             ),
@@ -56,12 +56,13 @@ class _DrawerState extends State<DrawerPage> {
           ),
           ListTile(
             leading: Icon(Icons.person_2_rounded,
-                size: _drawerIconSize, color: Theme.of(context).accentColor),
+                size: _drawerIconSize,
+                color: Theme.of(context).colorScheme.secondary),
             title: Text(
               'Profile',
               style: TextStyle(
                   fontSize: _drawerFontSize,
-                  color: Theme.of(context).accentColor),
+                  color: Theme.of(context).colorScheme.secondary),
             ),
             onTap: () {
               setState(() {
@@ -77,12 +78,13 @@ class _DrawerState extends State<DrawerPage> {
           ),
           ListTile(
             leading: Icon(Icons.home,
-                size: _drawerIconSize, color: Theme.of(context).accentColor),
+                size: _drawerIconSize,
+                color: Theme.of(context).colorScheme.secondary),
             title: Text(
               'Home',
               style: TextStyle(
                   fontSize: _drawerFontSize,
-                  color: Theme.of(context).accentColor),
+                  color: Theme.of(context).colorScheme.secondary),
             ),
             onTap: () {
               setState(() {
@@ -100,13 +102,13 @@ class _DrawerState extends State<DrawerPage> {
             leading: Icon(
               Icons.logout_rounded,
               size: _drawerIconSize,
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).colorScheme.secondary,
             ),
             title: Text(
               'Logout',
               style: TextStyle(
                   fontSize: _drawerFontSize,
-                  color: Theme.of(context).accentColor),
+                  color: Theme.of(context).colorScheme.secondary),
             ),
             onTap: () {
               SystemNavigator.pop();
