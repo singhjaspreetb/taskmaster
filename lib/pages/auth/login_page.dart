@@ -1,10 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:taskmaster/common/theme_helper.dart';
+import 'package:taskmaster/helper/helper_function.dart';
 import 'package:taskmaster/pages/auth/forgot_password_page.dart';
 import 'package:taskmaster/pages/auth/registration_page.dart';
 import 'package:taskmaster/pages/views/home_page.dart';
 import 'package:taskmaster/pages/widgets/header_widget.dart';
+import 'package:taskmaster/services/auth_service.dart';
+import 'package:taskmaster/services/database_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -16,7 +21,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final double _headerHeight = 250;
   final Key _formKey = GlobalKey<FormState>();
-
+  String email = "";
+  String password = "";
+  AuthService authService = AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +62,12 @@ class _LoginPageState extends State<LoginPage> {
                                     ThemeHelper().inputBoxDecorationShaddow(),
                                 child: TextField(
                                   decoration: ThemeHelper().textInputDecoration(
-                                      'User Name', 'Enter your user name'),
+                                      'E-Mail', 'Enter your email'),
+                                  onChanged: (val) {
+                                    setState(() {
+                                      email = val;
+                                    });
+                                  },
                                 ),
                               ),
                               const SizedBox(height: 30.0),
@@ -66,6 +78,11 @@ class _LoginPageState extends State<LoginPage> {
                                   obscureText: true,
                                   decoration: ThemeHelper().textInputDecoration(
                                       'Password', 'Enter your password'),
+                                  onChanged: (val) {
+                                    setState(() {
+                                      password = val;
+                                    });
+                                  },
                                 ),
                               ),
                               const SizedBox(height: 15.0),
@@ -108,11 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   onPressed: () {
                                     //After successful login we will redirect to profile page. Let's create profile page now
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const HomePage()));
+                                    login();
                                   },
                                 ),
                               ),
@@ -150,5 +163,23 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  login() async {
+    await authService
+        .loginWithUserNameandPassword(email, password)
+        .then((value) async {
+      if (value == true) {
+        QuerySnapshot snapshot =
+            await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
+                .gettingUserData(email);
+        // saving the values to our shared preferences
+        await HelperFunctions.saveUserLoggedInStatus(true);
+        await HelperFunctions.saveUserEmailSF(email);
+        await HelperFunctions.saveUserNameSF(snapshot.docs[0]['fullName']);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
+      }
+    });
   }
 }

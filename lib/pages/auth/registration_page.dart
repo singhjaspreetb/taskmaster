@@ -342,7 +342,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         await HelperFunctions.saveUserEmailSF(email);
         await HelperFunctions.saveUserNameSF(fullName);
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+            context, MaterialPageRoute(builder: (context) => LoginPage()));
       } else {
         // showSnackbar(context, Colors.red, value);
         setState(() {
