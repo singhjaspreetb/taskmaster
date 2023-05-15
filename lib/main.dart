@@ -11,7 +11,7 @@ void main() async {
   if (kIsWeb) {
     await Firebase.initializeApp(
         options: const FirebaseOptions(
-            apiKey: "AIzaSyDqodlU1gsWHSq2SSq58mjQK2Y1MBZwwNU",
+            apiKey: "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",
             appId: "1:834374294994:web:a5c58ea92c73f7b5903c0b",
             messagingSenderId: "834374294994",
             projectId: "flutter-61f0e"));
